@@ -1,6 +1,0 @@
-services:
-  - type: web
-    name: faq-chatbot
-    runtime: python
-    buildCommand: pip install -r requirements.txt && python startup.py
-    startCommand: python app.py
