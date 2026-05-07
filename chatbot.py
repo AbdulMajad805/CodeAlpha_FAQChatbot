@@ -17,53 +17,55 @@ nltk.download('wordnet')
 lemmatizer = WordNetLemmatizer()
 stop_words = set(stopwords.words('english'))
 
-# ── Synonym map — expands user words to FAQ vocabulary ────────────────
 SYNONYMS = {
-    "send back"   : "return",
-    "sending back": "return",
-    "refund"      : "return",
-    "give back"   : "return",
-    "ship"        : "shipping delivery",
-    "shipping"    : "shipping delivery",
-    "arrive"      : "delivery",
-    "when"        : "delivery time",
-    "card"        : "payment",
-    "cards"       : "payment",
-    "pay"         : "payment",
-    "paying"      : "payment",
-    "cancel"      : "cancel order",
-    "cancellation": "cancel order",
-    "modify"      : "change order",
-    "change"      : "change order",
-    "broken"      : "damaged defective",
-    "damaged"     : "damaged defective",
-    "defective"   : "damaged defective",
-    "lost"        : "missing package",
-    "missing"     : "missing package",
-    "safe"        : "secure privacy",
-    "secure"      : "secure privacy",
-    "privacy"     : "secure privacy",
-    "swap"        : "exchange",
-    "exchange"    : "exchange",
-    "different size": "exchange",
-    "coupon"      : "discount promo code",
-    "promo"       : "discount promo code",
-    "discount"    : "discount promo code",
-    "back in stock": "restock",
-    "sold out"    : "restock",
-    "warranty"    : "warranty guarantee",
-    "guarantee"   : "warranty guarantee",
-    "gift"        : "gift wrapping",
-    "wrap"        : "gift wrapping",
-    "bulk"        : "wholesale discount",
-    "wholesale"   : "wholesale discount",
-    "store"       : "physical store location",
-    "location"    : "physical store location",
-    "account"     : "create account login",
-    "login"       : "create account login",
-    "sign up"     : "create account",
-    "password"    : "reset password forgot",
-    "forgot"      : "reset password forgot",
+    "send back"     : "return refund",
+    "sending back"  : "return refund",
+    "give back"     : "return refund",
+    "sent back"     : "return refund",
+    "send it back"  : "return refund",
+    "refund"        : "return refund",
+    "money back"    : "return refund",
+    "ship back"     : "return refund",
+    "return"        : "return refund",
+    "arrive"        : "delivery shipping",
+    "arriving"      : "delivery shipping",
+    "get my order"  : "delivery shipping",
+    "how long"      : "delivery time",
+    "card"          : "payment method",
+    "cards"         : "payment method",
+    "pay"           : "payment method",
+    "paying"        : "payment method",
+    "cancel"        : "cancel order",
+    "cancellation"  : "cancel order",
+    "modify"        : "change order",
+    "broken"        : "damaged defective",
+    "damaged"       : "damaged defective",
+    "defective"     : "damaged defective",
+    "lost"          : "missing package lost",
+    "missing"       : "missing package lost",
+    "safe"          : "secure privacy",
+    "secure"        : "secure privacy",
+    "swap"          : "exchange size color",
+    "different size": "exchange size color",
+    "coupon"        : "discount promo code",
+    "promo"         : "discount promo code",
+    "sold out"      : "restock available",
+    "back in stock" : "restock available",
+    "warranty"      : "warranty guarantee",
+    "guarantee"     : "warranty guarantee",
+    "gift"          : "gift wrapping",
+    "bulk"          : "wholesale discount",
+    "wholesale"     : "wholesale discount",
+    "sign up"       : "create account register",
+    "register"      : "create account register",
+    "forgot"        : "reset password forgot",
+    "password"      : "reset password forgot",
+    "track"         : "track order",
+    "tracking"      : "track order",
+    "where is"      : "track order",
+    "international" : "international shipping worldwide",
+    "overseas"      : "international shipping worldwide",
+    "abroad"        : "international shipping worldwide",
 }
 
 # ── 1. Load FAQs from CSV ──────────────────────────────────────────────
@@ -80,10 +82,11 @@ def load_faqs(filepath="faqs.csv"):
 
 # ── 2. Expand synonyms in text ─────────────────────────────────────────
 def expand_synonyms(text):
-    text_lower = text.lower()
-    for phrase, replacement in SYNONYMS.items():
+    text_lower = text.lower().strip()
+    # Sort by length so longer phrases match first
+    for phrase in sorted(SYNONYMS.keys(), key=len, reverse=True):
         if phrase in text_lower:
-            text_lower = text_lower.replace(phrase, replacement)
+            text_lower = text_lower.replace(phrase, SYNONYMS[phrase])
     return text_lower
 
 # ── 3. Preprocess text using NLTK ─────────────────────────────────────
