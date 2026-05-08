@@ -5,12 +5,7 @@ An intelligent FAQ chatbot for an e-commerce store, built using Natural Language
 ---
 
 ## 🔗 Live Demo
-👉 [Click here to try the chatbot](https://YOURUSERNAME-codealpha-faqchatbot.streamlit.app)
-
----
-
-## 📸 Screenshot
-![FAQ Chatbot Screenshot](screenshot.png)
+👉 [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://chatbot-codealpha.streamlit.app/)
 
 ---
 
@@ -35,6 +30,3 @@ An intelligent FAQ chatbot for an e-commerce store, built using Natural Language
 | Scikit-learn | TF-IDF Vectorizer + Cosine Similarity |
 | HTML/CSS | Custom UI styling inside Streamlit |
 
----
-
-## 📁 Project Structure
